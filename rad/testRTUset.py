@@ -1,15 +1,4 @@
 from pymodbus.client.sync import ModbusSerialClient
-
-#import os
-#from elevate import elevate
-
-#def is_root():
-#    return os.getuid() == 0
-
-#print("before ", is_root())
-#elevate()
-#print("after ", is_root())
-
 client = ModbusSerialClient(method='rtu',
                             port="/dev/ttyUSB0",
                             baudrate=9600)
@@ -17,26 +6,35 @@ client = ModbusSerialClient(method='rtu',
 from pymodbus.payload import BinaryPayloadDecoder
 from pymodbus.payload import BinaryPayloadBuilder
 from pymodbus.constants import Endian
+import time
+
+# address = 1
+# Can write registers
+# registers = builder.to_registers()
+# client.write_registers(address, registers, unit=1)
+
+# Or can write encoded binary string
 
 
 import time
 onOff = True
 
-
-client.write_coil(0, True)
-
 isOk = True
 count = 1
+
 while isOk:
     # read the setable devices
-    result = client.read_coils(count-1, count)
-
-    if not result.isError():
-        print(result.bits)
-    else:
-        print('ERROR')
-        break
-    count += 1
+    #result = client.read_coils(count-1, count)
+    client.write_coil(1, onOff)
+    print('OK', onOff)
+    onOff = not onOff
+    time.sleep(1)
+    #if not result.isError():
+    #    print(result.bits)
+    #else:
+    #    print('ERROR')
+    #    break
+    #count += 1
 
 '''
 for i in range(0, 8):
