@@ -1,7 +1,11 @@
+import logging
+logging.basicConfig(level=logging.DEBUG)
+
 from pymodbus.client.sync import ModbusSerialClient
 client = ModbusSerialClient(method='rtu',
                             port="/dev/ttyUSB0",
                             baudrate=9600)
+
 #client.write_coil(1, 1)
 from pymodbus.payload import BinaryPayloadDecoder
 from pymodbus.payload import BinaryPayloadBuilder
@@ -25,7 +29,12 @@ count = 1
 while isOk:
     # read the setable devices
     #result = client.read_coils(count-1, count)
-    client.write_coil(1, onOff)
+
+    # address ON device, payload, UNIT ID
+    state = client.write_coil(0, onOff, unit=99)
+    print(state)
+    print(state.isError())
+    print(type(state))
     print('OK', onOff)
     onOff = not onOff
     time.sleep(1)

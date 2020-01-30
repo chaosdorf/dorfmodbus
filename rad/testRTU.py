@@ -23,7 +23,7 @@ import time
 onOff = True
 
 
-client.write_coil(0, True)
+#client.write_coil(0, True)
 
 isOk = True
 count = 1
