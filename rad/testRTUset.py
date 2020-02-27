@@ -31,7 +31,7 @@ while isOk:
     #result = client.read_coils(count-1, count)
 
     # address ON device, payload, UNIT ID
-    state = client.write_coil(0, onOff, unit=99)
+    state = client.write_coil(0, onOff, unit=0)
     print(state)
     print(state.isError())
     print(type(state))

@@ -2,6 +2,11 @@
 
 basic figuring stuff out files and tests
 
+## requirements
+
+```bash
+pip3 install requirements.txt
+```
 
 ## device
 
